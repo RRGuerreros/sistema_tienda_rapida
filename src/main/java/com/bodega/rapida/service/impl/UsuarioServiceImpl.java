@@ -50,5 +50,10 @@ public class UsuarioServiceImpl implements CrudService<Usuario>, UsuarioService{
 		return dao.findByCelular(celular);
 	}
 
+	@Override
+	public Usuario existUser(String celular, String clave) throws Exception {
+		return dao.existeUsuario(celular, clave);
+	}
+
 	
 }

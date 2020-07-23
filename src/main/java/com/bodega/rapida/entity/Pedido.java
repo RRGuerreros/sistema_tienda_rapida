@@ -22,8 +22,6 @@ public class Pedido {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	@Column( name = "pedido_id")
 	private int id;
-	@Column( name = "numero" )
-	private int numero;
 	@Column( name = "tipoPago", length = 50 )
 	private String tipoPago;
 	@Column( name = "fechaEmision" )
@@ -48,10 +46,9 @@ public class Pedido {
 	@OneToMany( mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<DetallePedido> detalles = new ArrayList<>();
 	
-	public Pedido(int numero, String tipoPago, String fechaEmision, String nombreBanco, String codigoVoucher,
+	public Pedido(String tipoPago, String fechaEmision, String nombreBanco, String codigoVoucher,
 			String estado, double total, double subtotal, double igv) {
 	
-		this.numero = numero;
 		this.tipoPago = tipoPago;
 		this.fechaEmision = fechaEmision;
 		this.nombreBanco = nombreBanco;
@@ -77,14 +74,6 @@ public class Pedido {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
 	}
 
 	public String getTipoPago() {
@@ -157,7 +146,7 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", numero=" + numero + ", tipoPago=" + tipoPago + ", fechaEmision=" + fechaEmision
+		return "Pedido [id=" + id + ", tipoPago=" + tipoPago + ", fechaEmision=" + fechaEmision
 				+ ", nombreBanco=" + nombreBanco + ", codigoVoucher=" + codigoVoucher + ", estado=" + estado
 				+ ", total=" + total + ", subtotal=" + subtotal + ", igv=" + igv + "]";
 	}

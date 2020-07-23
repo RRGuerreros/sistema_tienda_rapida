@@ -1,10 +1,27 @@
 package com.bodega.rapida.http;
 
+import java.util.List;
+
 public class ResponseAjax<T> {
 	
 	private String message;
 	private boolean requestSuccess;
+	private T object;
+	private List<T> list;
+	
+	public List<T> getList() {
+		return list;
+	}
+	public void setList(List<T> list) {
+		this.list = list;
+	}
+	public T getObject() {
+		return object;
+	}
 
+	public void setObject(T object) {
+		this.object = object;
+	}
 	public ResponseAjax() {
 		// TODO Auto-generated constructor stub
 	}
