@@ -19,7 +19,23 @@ public class OrderServiceImpl implements OrderService, CrudService<Pedido> {
 	
 	@Override
 	public Pedido saveAndReturnOrder(Pedido order) throws Exception {
-		return dao.save(order);
+		
+		dao.save(order);
+		
+		int number_generate = order.getId();
+		
+		Integer num = new Integer(number_generate);
+		
+		String number_default = "0000000000";
+		
+		if( number_default.length() > num.toString().length() ) {
+			
+			number_default = number_default.concat(num.toString());
+						
+			order.setNumberGenerated( "NRO-OR-" + number_default.substring(num.toString().length()) );
+		} 
+		
+		return order;
 	}
 
 	@Override

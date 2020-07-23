@@ -15,6 +15,7 @@ import com.bodega.rapida.entity.DetallePedido;
 import com.bodega.rapida.entity.Pedido;
 import com.bodega.rapida.entity.Producto;
 import com.bodega.rapida.entity.Usuario;
+import com.bodega.rapida.service.OrderService;
 import com.bodega.rapida.service.ProductService;
 
 @SpringBootApplication
@@ -34,18 +35,23 @@ public class RapidaApplication implements CommandLineRunner {
 	@Qualifier("productServiceImpl")
 	private ProductService serviceProd;
 	
+	@Autowired
+	@Qualifier("orderServiceImpl")
+	private OrderService orderServ;
+	
 	@Override
 	public void run(String... args) throws Exception {
 	
 		// TODO Auto-generated method stub
 		/*
+		 
 		Producto prod1= new Producto(3,"prod6", "", 200.00, 10, "", "");
 		Producto prod2= new Producto(4,"prod7", "", 300.00, 5, "", "");
 		
-		Pedido pedido = new Pedido("CREDIO", "2020-01-01", "BCP", "VOU-235565", "PENDIENTE", 200, 200, 200);
+		Pedido pedido = new Pedido("CREDITO", "2020-01-01", "BBVA", "VOU-11111", "RECHAZADO", 200, 200, 200);
 		
-		DetallePedido det1 = new DetallePedido(pedido, prod1, 2, 100);
-		DetallePedido det2 = new DetallePedido(pedido, prod2, 5, 50);
+		DetallePedido det1 = new DetallePedido(pedido, prod1, 2, 1);
+		DetallePedido det2 = new DetallePedido(pedido, prod2, 5, 2);
 
 		Usuario usuario = new Usuario();
 		usuario.setId(1);
@@ -53,10 +59,12 @@ public class RapidaApplication implements CommandLineRunner {
 		pedido.addDetallePedido(det1);
 		pedido.addDetallePedido(det2);
 		pedido.setUsuario(usuario);
-		
-		dao.save(pedido);
+
+		orderServ.saveAndReturnOrder(pedido);
 		
 		System.out.println(pedido);
+		
+		*/
 		
 		/*
 		
@@ -69,22 +77,7 @@ public class RapidaApplication implements CommandLineRunner {
 		
 		System.out.println(usu);*/
 		
-		int n = 100000;
 		
-		Integer num = new Integer(n);
-		
-		String numero = "00000"+n;
-		
-		if( numero.length() < num.toString().length() ) {
-			System.out.println("Ya no se puede generar mas números de pedidos");
-		} else {
-			
-			numero.concat(num.toString());
-			
-			System.out.println("numero concatenado: " + numero );
-			
-			System.out.println("Numero: "+ numero.substring(num.toString().length()-1) );
-		}
 		
 		
 		

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table( name = "pedido")
@@ -39,6 +40,9 @@ public class Pedido {
 	@Column( name = "igv" )
 	private double igv;
 	
+	@Transient
+	private String numberGenerated;
+	
 	@ManyToOne
 	@JoinColumn( name = "usuario_id", nullable = false, updatable = false)
 	private Usuario usuario;
@@ -61,6 +65,13 @@ public class Pedido {
 
 	public Pedido() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String getNumberGenerated() {
+		return numberGenerated;
+	}
+	public void setNumberGenerated(String numberGenerated) {
+		this.numberGenerated = numberGenerated;
 	}
 	public Usuario getUsuario() {
 		return usuario;
@@ -146,8 +157,9 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", tipoPago=" + tipoPago + ", fechaEmision=" + fechaEmision
-				+ ", nombreBanco=" + nombreBanco + ", codigoVoucher=" + codigoVoucher + ", estado=" + estado
-				+ ", total=" + total + ", subtotal=" + subtotal + ", igv=" + igv + "]";
+		return "Pedido [id=" + id + ", tipoPago=" + tipoPago + ", fechaEmision=" + fechaEmision + ", nombreBanco="
+				+ nombreBanco + ", codigoVoucher=" + codigoVoucher + ", estado=" + estado + ", total=" + total
+				+ ", subtotal=" + subtotal + ", igv=" + igv + ", numberGenerated=" + numberGenerated + "]";
 	}
+	
 }
