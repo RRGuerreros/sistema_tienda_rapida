@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +15,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Product {
-
+public class Product implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
@@ -34,7 +36,7 @@ public class Product {
 	@Column(name = "imageLink", length = 200)
 	private String imageLink;
 
-	@OneToMany(mappedBy = "product" )
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY )
 	private List<OrderDetail> details = new ArrayList<>();
 
 	public Product() {
@@ -48,8 +50,7 @@ public class Product {
 		this.description = description;
 		this.imageLink = imageLink;
 	}
-	public Product(int id, String name, String category, double unitCost, int stock, String description,
-			String imageLink) {
+	public Product(int id, String name, String category, double unitCost, int stock, String description,String imageLink) {
 		this.id = id;
 		this.name = name;
 		this.category = category;
@@ -119,15 +120,7 @@ public class Product {
 	public void setImageLink(String imageLink) {
 		this.imageLink = imageLink;
 	}
-
-	public List<OrderDetail> getDetails() {
-		return details;
-	}
-
-	public void setDetails(List<OrderDetail> details) {
-		this.details = details;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", unitCost=" + unitCost + ", stock="

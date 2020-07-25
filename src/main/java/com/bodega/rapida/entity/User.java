@@ -23,13 +23,15 @@ import javax.persistence.Table;
 	            @ColumnResult(name="name",type = String.class),
 	            @ColumnResult(name="lastname",type = String.class),
 	            @ColumnResult(name="phone",type = String.class),
-	            @ColumnResult(name="address",type = String.class)
+	            @ColumnResult(name="address",type = String.class),
+	            @ColumnResult(name="typeUser", type = String.class)
 	        }
-	    )
+	    ),
+	    
 	})
 	@NamedNativeQuery( 
 		name = "existUser", 
-		query = "SELECT u.user_id, u.name, u.lastname, u.phone, u.address FROM User u where u.phone = ?1 and BINARY u.password = ?2",
+		query = "SELECT u.user_id, u.name, u.lastname, u.phone, u.address, u.typeUser FROM User u where u.phone = ?1 and BINARY u.password = ?2",
 		resultClass = User.class, 
 		resultSetMapping = "userResultV1")
 @Entity
@@ -50,6 +52,8 @@ public class User {
 	private String password;
 	@Column(name = "address", length = 200)
 	private String address;
+	@Column(name = "typeUser")
+	private String typeUser;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Order> orders;
@@ -58,21 +62,29 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String name, String lastname, String phone, String password, String address) {
+	public User(String name, String lastname, String phone, String password, String address, String typeUser) {
 		this.name = name;
 		this.lastname = lastname;
 		this.phone = phone;
 		this.password = password;
 		this.address = address;
+		this.typeUser = typeUser;
 	}
-	public User(Integer id, String name, String lastname, String phone, String address) {
+	public User(Integer id, String name, String lastname, String phone, String address, String typeUser) {
 		this.id = id;
 		this.name = name;
 		this.lastname = lastname;
 		this.phone = phone;
 		this.address = address;
+		this.typeUser = typeUser;
 	}
 
+	public String getTypeUser() {
+		return typeUser;
+	}
+	public void setTypeUser(String typeUser) {
+		this.typeUser = typeUser;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -134,7 +146,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", lastname=" + lastname + ", phone=" + phone + ", password="
-				+ password + ", address=" + address + "]";
+		return "User [id=" + id + ", name=" + name + ", lastname=" + lastname + ", phone=" + phone + ", address="
+				+ address + ", typeUser=" + typeUser + "]";
 	}
 }

@@ -22,20 +22,9 @@ public class OrderServiceImpl implements OrderService, CrudService<Order> {
 	public Order saveAndReturnOrder(Order order) throws Exception {
 		
 		dao.save(order);
-		
-		int number_generate = order.getId();
-		
-		Integer num = new Integer(number_generate);
-		
-		String number_default = "0000000000";
-		
-		if( number_default.length() > num.toString().length() ) {
-			
-			number_default = number_default.concat(num.toString());
-						
-			order.setNumberGenerated( "NRO-OR-" + number_default.substring(num.toString().length()) );
-		} 
-		
+				
+		order.setNumberGenerated( this.generateCode(order.getId() ));
+				
 		return order;
 	}
 
@@ -71,22 +60,42 @@ public class OrderServiceImpl implements OrderService, CrudService<Order> {
 
 	@Override
 	public List<Order> findByStateOrderByDateEmisionAsc(String State) throws Exception {
-		return dao.findByStateOrderByDateEmisionAsc(State);
+		
+		List<Order> orders = dao.findByStateOrderByDateEmisionAsc(State);
+		
+		for (Order order : orders) {
+			order.setNumberGenerated(this.generateCode(order.getId()));
+		}
+		
+		return orders;
 	}
 
 	@Override
 	public Order findById(int idOrder) throws Exception {
 		
-		Order order = dao.findById(idOrder).orElse(null);
+		Order order = dao.findById(idOrder);
 		
 		if( order != null ) {
+			order.setNumberGenerated( this.generateCode(idOrder) );
 			order.setDetails( dao.getOrderDetails(idOrder) );
 		}
 		
 		return order;
 	}
 
-	
+	public String generateCode( int idOrden ) {
+		
+		Integer num = new Integer(idOrden);
+		
+		String number_default = "0000000000";
+		
+		if( number_default.length() > num.toString().length() ) {
+			
+			number_default = number_default.concat(num.toString());
+		}
+		
+		return "NRO-OR-" + number_default.substring(num.toString().length());
+	}
 	
 	
 

@@ -12,7 +12,7 @@ import com.bodega.rapida.entity.Product;
 @Repository
 public interface ProductDao extends CrudRepository<Product, Integer>{
 
-	@Query( value="SELECT p FROM Product p WHERE p.stock <= :numberMin")
+	@Query( value="SELECT NEW Product(p.id, p.name, p.category, p.unitCost, p.stock, p.description, p.imageLink) FROM Product p WHERE p.stock <= :numberMin")
 	List<Product> listProductsWithLowQuantity( @Param("numberMin") int numberMin ) throws Exception;
 	
 	List<Product> findByCategory( String category );
