@@ -10,9 +10,9 @@ public interface CrudService<T> {
 	
 	void delete( int id );
 	
-	T consultar( int id );
+	T consult( int id );
 	
-	List<T> listar();
+	List<T> list();
 	
 	
 

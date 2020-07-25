@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bodega.rapida.entity.Producto;
+import com.bodega.rapida.entity.Product;
 import com.bodega.rapida.http.ResponseAjax;
 import com.bodega.rapida.service.ProductService;
 
@@ -23,10 +23,10 @@ public class ProductController {
 	
 	@GetMapping("/stock_low")
 	@ResponseBody
-	public ResponseAjax<Producto> listProductsWithLowQuatity(
+	public ResponseAjax<Product> listProductsWithLowQuatity(
 			@RequestParam("numberMin") int numberMin ){
 		
-		ResponseAjax<Producto> result=new ResponseAjax<>();
+		ResponseAjax<Product> result=new ResponseAjax<>();
 		
 		try {			
 			result.setList( productoService.listProductsWithLowQuantity(numberMin) );
@@ -43,9 +43,9 @@ public class ProductController {
 
 	@GetMapping("/detail")
 	@ResponseBody
-	public ResponseAjax<Producto> findById( @RequestParam("id") int id ){
+	public ResponseAjax<Product> findById( @RequestParam("id") int id ){
 		
-		ResponseAjax<Producto> result=new ResponseAjax<>();
+		ResponseAjax<Product> result=new ResponseAjax<>();
 	
 		try {
 			result.setObject( productoService.findById(id) );

@@ -10,32 +10,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bodega.rapida.entity.Respuesta;
-import com.bodega.rapida.entity.Usuario;
+import com.bodega.rapida.entity.User;
 import com.bodega.rapida.http.MessageCode;
 import com.bodega.rapida.http.ResponseAjax;
-import com.bodega.rapida.service.impl.UsuarioServiceImpl;
+import com.bodega.rapida.service.impl.UserServiceImpl;
 
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/user")
+public class UserController {
 	
 	@Autowired
-	@Qualifier("usuarioServiceImpl")
-	private UsuarioServiceImpl usuarioService;
+	@Qualifier("userServiceImpl")
+	private UserServiceImpl userService;
 
 	@PostMapping
 	@ResponseBody
-	public ResponseAjax<String> save( @RequestBody Usuario usuario ){
+	public ResponseAjax<String> save( @RequestBody User user ){
 		
 		ResponseAjax<String> result = new ResponseAjax<>();
 		
 		try {
 			
-			Usuario find_usuario = usuarioService.findByCelular(usuario.getCelular());
+			User find_user = userService.findByPhone(user.getPhone());
 			
-			if( find_usuario == null ) {
-				usuarioService.save(usuario);
+			if( find_user == null ) {
+				userService.save(user);
 				result.setParametersResponse( MessageCode.SAVE_SUCCESS, true);
 			} else {
 				result.setParametersResponse("El celular del usuario ingresado ya existe, no se pudo registrar.", false);
@@ -51,15 +50,15 @@ public class UsuarioController {
 	
 	@GetMapping("/login")
 	@ResponseBody
-	public ResponseAjax<Usuario> findByCelular( 
-			@RequestParam("celular") String celular,
-			@RequestParam("clave") String clave ){
+	public ResponseAjax<User> findByCelular( 
+			@RequestParam("phone") String phone,
+			@RequestParam("password") String password ){
 		
-		ResponseAjax<Usuario> result=new ResponseAjax<Usuario>();
+		ResponseAjax<User> result=new ResponseAjax<User>();
 		
 		try {
 			
-			Usuario find_user = usuarioService.existUser(celular, clave);
+			User find_user = userService.userExists(phone, password);
 			
 			result.setObject(find_user);
 			result.setParametersResponse("", true);

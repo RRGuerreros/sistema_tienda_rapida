@@ -6,29 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.bodega.rapida.dao.ProductoDao;
-import com.bodega.rapida.entity.Producto;
+import com.bodega.rapida.dao.ProductDao;
+import com.bodega.rapida.entity.Product;
 import com.bodega.rapida.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
 	@Autowired
-	private ProductoDao dao;
+	private ProductDao dao;
 	
 	@Override
-	public List<Producto> listProductsWithLowQuantity(int numberMin) throws Exception {
+	public List<Product> listProductsWithLowQuantity(int numberMin) throws Exception {
 		return dao.listProductsWithLowQuantity(numberMin);
 	}
 
 	@Override
-	public List<Producto> findByCategoria(String categoria) throws Exception {
-		return dao.findByCategoria(categoria);
+	public List<Product> findByCategory(String category) throws Exception {
+		return dao.findByCategory(category);
 	}
 
 	@Override
-	public Producto findById(int id) throws Exception {
-		return dao.findById(id).orElse(new Producto());
+	public Product findById(int id) throws Exception {
+		return dao.findById(id).orElse(new Product());
 	}
 	
 	

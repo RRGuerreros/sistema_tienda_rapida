@@ -6,19 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.bodega.rapida.dao.PedidoDao;
-import com.bodega.rapida.entity.Pedido;
+import com.bodega.rapida.dao.OrderDao;
+import com.bodega.rapida.entity.Order;
+import com.bodega.rapida.entity.OrderDetail;
 import com.bodega.rapida.service.CrudService;
 import com.bodega.rapida.service.OrderService;
 
 @Service
-public class OrderServiceImpl implements OrderService, CrudService<Pedido> {
+public class OrderServiceImpl implements OrderService, CrudService<Order> {
 
 	@Autowired
-	private PedidoDao dao;
+	private OrderDao dao;
 	
 	@Override
-	public Pedido saveAndReturnOrder(Pedido order) throws Exception {
+	public Order saveAndReturnOrder(Order order) throws Exception {
 		
 		dao.save(order);
 		
@@ -39,13 +40,13 @@ public class OrderServiceImpl implements OrderService, CrudService<Pedido> {
 	}
 
 	@Override
-	public void save(Pedido objeto) throws Exception {
+	public void save(Order objeto) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(Pedido objeto) {
+	public void update(Order objeto) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -57,17 +58,36 @@ public class OrderServiceImpl implements OrderService, CrudService<Pedido> {
 	}
 
 	@Override
-	public Pedido consultar(int id) {
+	public Order consult(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Pedido> listar() {
+	public List<Order> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<Order> findByStateOrderByDateEmisionAsc(String State) throws Exception {
+		return dao.findByStateOrderByDateEmisionAsc(State);
+	}
+
+	@Override
+	public Order findById(int idOrder) throws Exception {
+		
+		Order order = dao.findById(idOrder).orElse(null);
+		
+		if( order != null ) {
+			order.setDetails( dao.getOrderDetails(idOrder) );
+		}
+		
+		return order;
+	}
+
+	
+	
 	
 
 	

@@ -1,8 +1,16 @@
 package com.bodega.rapida.service;
 
-import com.bodega.rapida.entity.Pedido;
+import java.util.List;
+
+import com.bodega.rapida.entity.Order;
+import com.bodega.rapida.entity.OrderDetail;
 
 public interface OrderService {
 
-	Pedido saveAndReturnOrder( Pedido order ) throws Exception;
+	Order saveAndReturnOrder( Order order ) throws Exception;
+	
+	List<Order> findByStateOrderByDateEmisionAsc( String state ) throws Exception;
+	
+	Order findById( int idOrder ) throws Exception;
+	
 }
