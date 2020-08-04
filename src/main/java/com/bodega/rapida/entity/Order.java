@@ -73,7 +73,21 @@ public class Order  implements Serializable {
 	}
 
 	public Order(int id, String paymentType, String dateEmision, String nameBanco, String codeVoucher, String state,
-			double total, double subtotal, double igv) {
+			double total, double subtotal, double igv, String name, int user_id ) {
+		this.id = id;
+		this.paymentType = paymentType;
+		this.dateEmision = dateEmision;
+		this.nameBanco = nameBanco;
+		this.codeVoucher = codeVoucher;
+		this.state = state;
+		this.total = total;
+		this.subtotal = subtotal;
+		this.igv = igv;
+		this.user = new User(user_id, name, "", "", "", "");
+	}
+	
+	public Order(int id, String paymentType, String dateEmision, String nameBanco, String codeVoucher, String state,
+			double total, double subtotal, double igv ) {
 		this.id = id;
 		this.paymentType = paymentType;
 		this.dateEmision = dateEmision;
@@ -217,12 +231,11 @@ public class Order  implements Serializable {
 	public void addOrderDetailt( OrderDetail orderDetail ) {
 		this.details.add(orderDetail);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", paymentType=" + paymentType + ", dateEmision=" + dateEmision + ", nameBanco="
 				+ nameBanco + ", codeVoucher=" + codeVoucher + ", state=" + state + ", total=" + total + ", subtotal="
-				+ subtotal + ", igv=" + igv + ", numberGenerated=" + numberGenerated + "]";
+				+ subtotal + ", igv=" + igv + ", numberGenerated=" + numberGenerated + ", user=" + user + "]";
 	}
-
 }

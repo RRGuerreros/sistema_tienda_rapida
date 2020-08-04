@@ -17,8 +17,8 @@ public interface OrderDao extends CrudRepository<Order, Integer>{
 			+ " FROM OrderDetail od inner join Product p on p.id = od.product.id WHERE od.order.id = ?1")
 	List<OrderDetail> getOrderDetails( int idOrder ) throws Exception;
 		
-	@Query("SELECT new com.bodega.rapida.entity.Order( o.id, o.paymentType, o.dateEmision, o.nameBanco, o.codeVoucher, o.state, o.total, o.subtotal, o.igv)"
-			+ " FROM Order o WHERE o.state = ?1 order by o.dateEmision desc")
+	@Query("SELECT new com.bodega.rapida.entity.Order( o.id, o.paymentType, o.dateEmision, o.nameBanco, o.codeVoucher, o.state, o.total, o.subtotal, o.igv, u.name, u.id )"
+			+ " FROM Order o inner join User u on u.id = o.user.id WHERE o.state = ?1 order by o.dateEmision desc")
 	List<Order> findByStateOrderByDateEmisionAsc( String state ) throws Exception;
 
 	@Query("SELECT new com.bodega.rapida.entity.Order( o.id, o.paymentType, o.dateEmision, o.nameBanco, o.codeVoucher, o.state, o.total, o.subtotal, o.igv)"

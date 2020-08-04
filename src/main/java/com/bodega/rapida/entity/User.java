@@ -24,14 +24,14 @@ import javax.persistence.Table;
 	            @ColumnResult(name="lastname",type = String.class),
 	            @ColumnResult(name="phone",type = String.class),
 	            @ColumnResult(name="address",type = String.class),
-	            @ColumnResult(name="typeUser", type = String.class)
+	            @ColumnResult(name="type_user", type = String.class)
 	        }
 	    ),
 	    
 	})
 	@NamedNativeQuery( 
 		name = "existUser", 
-		query = "SELECT u.user_id, u.name, u.lastname, u.phone, u.address, u.typeUser FROM User u where u.phone = ?1 and BINARY u.password = ?2",
+		query = "SELECT u.user_id, u.name, u.lastname, u.phone, u.address, u.type_user FROM User u where u.phone = ?1 and BINARY u.password = ?2",
 		resultClass = User.class, 
 		resultSetMapping = "userResultV1")
 @Entity
